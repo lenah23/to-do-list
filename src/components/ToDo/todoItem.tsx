@@ -3,11 +3,12 @@ import styles from './todo.module.scss';
 interface IProps {
   todoLabel: string;
   completed: boolean;
-  onClick: () => void
+  onClick: () => void;
 }
 
 const TodoItem: React.FC<IProps> = (props) => {
   const { todoLabel, completed, onClick } = props;
+
   return (
     <div className={styles['todo-item']} onClick={onClick}>
       <div className={styles['circle']}>

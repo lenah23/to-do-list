@@ -1,35 +1,21 @@
-import { useState } from 'react';
 import styles from './todo.module.scss';
+import { IStatusesList, statusesEnum } from '../../interfaces';
 
-enum statusesEnum {
-  ALL = 'all',
-  ACTIVE = 'active',
-  COMPLETED = 'completed',
+interface IProps {
+  itemsLeft: number | null;
+  activeStatus: statusesEnum;
+  setActiveStatus: (val: statusesEnum) => void;
+  statusesList: IStatusesList[];
 }
 
-const TodoFiltration: React.FC = () => {
-  const [activeStatus, setActiveStatus] = useState<statusesEnum>(
-    statusesEnum.ALL
-  );
-
-  const statusesList = [
-    {
-      id: 1,
-      label: statusesEnum.ALL,
-    },
-    {
-      id: 2,
-      label: statusesEnum.ACTIVE,
-    },
-    {
-      id: 3,
-      label: statusesEnum.COMPLETED,
-    },
-  ];
+const TodoFiltration: React.FC<IProps> = (props) => {
+  const { itemsLeft, activeStatus, setActiveStatus, statusesList } = props;
 
   return (
     <div className={styles['todo-card__footer']}>
-      <div className={styles['']}>2 items left</div>
+      <div className={styles['']}>
+        {props?.itemsLeft} {props?.itemsLeft === 1 ? 'item' : 'items'} left
+      </div>
       <div className={styles['statuses']}>
         {statusesList.map((item: { id: number; label: statusesEnum }) => {
           return (
