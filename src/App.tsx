@@ -1,8 +1,13 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
+import { TodoCard } from './components/index';
 
 function App() {
-  return <div className='App'></div>;
+  return (
+    <div className='App'>
+      <TodoCard />
+    </div>
+  );
 }
 
 export default App;
