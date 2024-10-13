@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import {
   useCreateNewTodoMutation,
+  useDeleteCompletedTodosMutation,
   useGetTodosListQuery,
   useUpdateTodoMutation,
 } from '../../store/Requests/todoApi';
@@ -10,6 +11,7 @@ const UseTodoHooks = () => {
   const { data: todoList } = useGetTodosListQuery();
   const [updateTodoStatusReq] = useUpdateTodoMutation();
   const [createTodoReq] = useCreateNewTodoMutation();
+  const [clearCompletedTodods] = useDeleteCompletedTodosMutation();
   const [itemsLeft, setItemsLeft] = useState<number | null>(null);
   const [inputValue, setInputValue] = useState<string>('');
 
@@ -57,6 +59,10 @@ const UseTodoHooks = () => {
     }
   };
 
+  const handleClearCompletedTodos = async () => {
+    await clearCompletedTodods();
+  };
+
   return {
     todoList,
     itemsLeft,
@@ -67,6 +73,7 @@ const UseTodoHooks = () => {
     setInputValue,
     handleKeyPress,
     inputValue,
+    handleClearCompletedTodos,
   };
 };
 

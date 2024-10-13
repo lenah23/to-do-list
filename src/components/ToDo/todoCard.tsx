@@ -14,6 +14,7 @@ const TodoCard: React.FC = () => {
     setInputValue,
     handleKeyPress,
     inputValue,
+    handleClearCompletedTodos,
   } = UseTodoHooks();
 
   return (
@@ -36,6 +37,7 @@ const TodoCard: React.FC = () => {
           activeStatus={activeStatus}
           setActiveStatus={setActiveStatus}
           statusesList={statusesList}
+          handleClearCompletedTodos={handleClearCompletedTodos}
         />
       </div>
     </div>

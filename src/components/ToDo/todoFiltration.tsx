@@ -6,10 +6,17 @@ interface IProps {
   activeStatus: statusesEnum;
   setActiveStatus: (val: statusesEnum) => void;
   statusesList: IStatusesList[];
+  handleClearCompletedTodos: any;
 }
 
 const TodoFiltration: React.FC<IProps> = (props) => {
-  const { itemsLeft, activeStatus, setActiveStatus, statusesList } = props;
+  const {
+    itemsLeft,
+    activeStatus,
+    setActiveStatus,
+    statusesList,
+    handleClearCompletedTodos,
+  } = props;
 
   return (
     <div className={styles['todo-card__footer']}>
@@ -33,7 +40,9 @@ const TodoFiltration: React.FC<IProps> = (props) => {
           );
         })}
       </div>
-      <div className={styles['']}>clear completed</div>
+      <div className={styles['']} onClick={handleClearCompletedTodos}>
+        clear completed
+      </div>
     </div>
   );
 };

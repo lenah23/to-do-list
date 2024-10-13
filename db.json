@@ -1,11 +1,6 @@
 {
   "todos": [
     {
-      "id": 1,
-      "title": "Learn React",
-      "completed": true
-    },
-    {
       "id": 2,
       "title": "Learn Next",
       "completed": false
@@ -14,16 +9,6 @@
       "completed": false,
       "title": "Learn Typescript",
       "id": 3
-    },
-    {
-      "id": 4,
-      "title": "learn new things",
-      "completed": true
-    },
-    {
-      "title": "leanr sql",
-      "completed": false,
-      "id": 5
     }
   ]
 }

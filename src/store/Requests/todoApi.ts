@@ -1,5 +1,11 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { ITodoList } from '../../interfaces';
+import {
+  createApi,
+  fetchBaseQuery,
+  FetchBaseQueryError,
+  FetchBaseQueryMeta,
+  QueryReturnValue,
+} from '@reduxjs/toolkit/query/react';
+import { ITodoItem, ITodoList } from '../../interfaces';
 
 export const todosApi = createApi({
   reducerPath: 'patientsApi',
@@ -31,7 +37,42 @@ export const todosApi = createApi({
       }),
       invalidatesTags: ['todos'],
     }),
+    deleteCompletedTodos: builder.mutation<void, void>({
+      async queryFn(_arg, _queryApi, _extraOptions, baseQuery): Promise<any> {
+        const result: QueryReturnValue<
+          unknown,
+          FetchBaseQueryError,
+          FetchBaseQueryMeta
+        > = await baseQuery({ url: '/todos', method: 'GET' });
+
+        if (result.error) {
+          return { error: result.error };
+        }
+
+        const completedTodos = (result?.data as ITodoList)?.filter(
+          (todo: ITodoItem) => todo.completed
+        );
+
+        for (const todo of completedTodos) {
+          const deleteResult = await baseQuery({
+            url: `/todos/${todo.id}`,
+            method: 'DELETE',
+          });
+          if (deleteResult.error) {
+            return { error: deleteResult.error };
+          }
+        }
+
+        return { data: undefined }; // Returning `data` as `undefined` since the mutation has no data to return
+      },
+      invalidatesTags: ['todos'],
+    }),
   }),
 });
 
-export const { useGetTodosListQuery, useUpdateTodoMutation, useCreateNewTodoMutation } = todosApi;
+export const {
+  useGetTodosListQuery,
+  useUpdateTodoMutation,
+  useCreateNewTodoMutation,
+  useDeleteCompletedTodosMutation,
+} = todosApi;
