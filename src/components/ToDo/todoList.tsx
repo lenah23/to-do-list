@@ -1,40 +1,47 @@
+import {
+  BaseQueryFn,
+  FetchArgs,
+  MutationDefinition,
+} from '@reduxjs/toolkit/query';
 import { ITodoItem, statusesEnum } from '../../interfaces';
 import { TodoItem } from '../index';
 import styles from './todo.module.scss';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { FetchBaseQueryMeta } from '@reduxjs/toolkit/query';
+import { TypedMutationTrigger } from '@reduxjs/toolkit/dist/query/react';
 
 interface IProps {
   todoList: any;
-  updateTodoStatusReq: any;
-  activeStatus: statusesEnum
+  updateTodoStatusReq: TypedMutationTrigger<
+    MutationDefinition<
+      any,
+      BaseQueryFn<
+        string | FetchArgs,
+        unknown,
+        FetchBaseQueryError,
+        {},
+        FetchBaseQueryMeta
+      >,
+      'todos',
+      any,
+      'patientsApi'
+    >,
+    unknown,
+    BaseQueryFn
+  >;
+  activeStatus: statusesEnum;
 }
 
 const TodoList: React.FC<IProps> = (props) => {
-
   const filterMap = {
-    [statusesEnum.ALL]: () => true, // Show all todos
-    [statusesEnum.COMPLETED]: (item: ITodoItem) => item.completed, // Show only completed todos
-    [statusesEnum.ACTIVE]: (item: ITodoItem) => !item.completed, // Show only active (pending) todos
+    [statusesEnum.ALL]: () => true,
+    [statusesEnum.COMPLETED]: (item: ITodoItem) => item.completed,
+    [statusesEnum.ACTIVE]: (item: ITodoItem) => !item.completed,
   };
   return (
     <div className={styles['todo-list']}>
-      {/* {props?.todoList?.map((item: ITodoItem) => {
-        return (
-          <TodoItem
-            completed={item?.completed}
-            todoLabel={item?.title}
-            onClick={() =>
-              props.updateTodoStatusReq({
-                id: item?.id,
-                completed: !item?.completed,
-                title: item?.title,
-              })
-            }
-            key={item?.id}
-          />
-        );
-      })} */}
       {props?.todoList
-        ?.filter(filterMap[props.activeStatus]) // Use the mapping object to filter
+        ?.filter(filterMap[props.activeStatus])
         .map((item: ITodoItem) => (
           <TodoItem
             completed={item?.completed}
@@ -42,7 +49,7 @@ const TodoList: React.FC<IProps> = (props) => {
             onClick={() =>
               props.updateTodoStatusReq({
                 id: item?.id,
-                completed: !item?.completed, // Toggle the completed status
+                completed: !item?.completed,
                 title: item?.title,
               })
             }

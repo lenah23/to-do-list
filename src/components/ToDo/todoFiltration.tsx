@@ -4,17 +4,17 @@ import { IStatusesList, statusesEnum } from '../../interfaces';
 interface IProps {
   itemsLeft: number | null;
   activeStatus: statusesEnum;
-  setActiveStatus: (val: statusesEnum) => void;
   statusesList: IStatusesList[];
-  handleClearCompletedTodos: any;
+  setActiveStatus: (val: statusesEnum) => void;
+  handleClearCompletedTodos: () => Promise<void>;
 }
 
 const TodoFiltration: React.FC<IProps> = (props) => {
   const {
     itemsLeft,
     activeStatus,
-    setActiveStatus,
     statusesList,
+    setActiveStatus,
     handleClearCompletedTodos,
   } = props;
 
@@ -41,7 +41,7 @@ const TodoFiltration: React.FC<IProps> = (props) => {
         })}
       </div>
       <div className={styles['']} onClick={handleClearCompletedTodos}>
-        clear completed
+        Clear completed
       </div>
     </div>
   );

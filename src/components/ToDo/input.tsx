@@ -1,10 +1,10 @@
 import styles from './todo.module.scss';
 
 interface IProps {
-  onChange: (val: any) => void;
+  handleKeyPress: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
-  handleKeyPress: any;
-  value: string
+  value: string;
 }
 
 const CustomInput: React.FC<IProps> = (props) => {

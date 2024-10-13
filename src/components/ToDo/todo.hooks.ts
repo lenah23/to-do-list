@@ -8,25 +8,6 @@ import {
 import { IStatusesList, statusesEnum } from '../../interfaces';
 
 const UseTodoHooks = () => {
-  const { data: todoList } = useGetTodosListQuery();
-  const [updateTodoStatusReq] = useUpdateTodoMutation();
-  const [createTodoReq] = useCreateNewTodoMutation();
-  const [clearCompletedTodods] = useDeleteCompletedTodosMutation();
-  const [itemsLeft, setItemsLeft] = useState<number | null>(null);
-  const [inputValue, setInputValue] = useState<string>('');
-
-  useEffect(() => {
-    if (todoList) {
-      setItemsLeft(
-        todoList?.filter((item) => item?.completed === false)?.length
-      );
-    }
-  }, [todoList]);
-
-  const [activeStatus, setActiveStatus] = useState<statusesEnum>(
-    statusesEnum.ALL
-  );
-
   const statusesList: IStatusesList[] = [
     {
       id: 1,
@@ -42,7 +23,32 @@ const UseTodoHooks = () => {
     },
   ];
 
-  const handleKeyPress = async (event: any) => {
+  // requests
+  const { data: todoList } = useGetTodosListQuery();
+  const [updateTodoStatusReq] = useUpdateTodoMutation();
+  const [createTodoReq] = useCreateNewTodoMutation();
+  const [clearCompletedTodods] = useDeleteCompletedTodosMutation();
+
+  // states
+  const [itemsLeft, setItemsLeft] = useState<number | null>(null);
+  const [inputValue, setInputValue] = useState<string>('');
+  const [activeStatus, setActiveStatus] = useState<statusesEnum>(
+    statusesEnum.ALL
+  );
+
+  // useEffects
+  useEffect(() => {
+    if (todoList) {
+      setItemsLeft(
+        todoList?.filter((item) => item?.completed === false)?.length
+      );
+    }
+  }, [todoList]);
+
+  // functions
+  const handleKeyPress = async (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => {
     if (event.key === 'Enter') {
       event.preventDefault();
       if (inputValue.trim()) {
@@ -66,13 +72,13 @@ const UseTodoHooks = () => {
   return {
     todoList,
     itemsLeft,
+    inputValue,
     activeStatus,
-    setActiveStatus,
     statusesList,
-    updateTodoStatusReq,
     setInputValue,
     handleKeyPress,
-    inputValue,
+    setActiveStatus,
+    updateTodoStatusReq,
     handleClearCompletedTodos,
   };
 };

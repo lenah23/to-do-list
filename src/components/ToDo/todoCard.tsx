@@ -1,19 +1,19 @@
 import React from 'react';
-import styles from './todo.module.scss';
-import { CustomInput, TodoList, TodoFiltration } from '../index';
 import UseTodoHooks from './todo.hooks';
+import { CustomInput, TodoList, TodoFiltration } from '../index';
+import styles from './todo.module.scss';
 
 const TodoCard: React.FC = () => {
   const {
     todoList,
     itemsLeft,
+    inputValue,
     activeStatus,
-    setActiveStatus,
     statusesList,
-    updateTodoStatusReq,
     setInputValue,
     handleKeyPress,
-    inputValue,
+    setActiveStatus,
+    updateTodoStatusReq,
     handleClearCompletedTodos,
   } = UseTodoHooks();
 

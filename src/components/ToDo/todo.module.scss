@@ -20,27 +20,27 @@
 .todo-input {
   border: none;
   outline: none;
-  border-bottom: 2px solid grey;
+  border-bottom: 2px solid $dark-grey;
   padding: 20px;
   @include sizes(100%, fit-content);
   border-bottom: 20px;
 
   &:focus {
     outline: none;
-    border-bottom: 2px solid grey;
+    border-bottom: 2px solid $dark-grey;
   }
 }
 
 .todo-item {
   padding: 10px;
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid $dark-grey;
   @include flexStyles(flex, row, flex-start, center);
 
   .circle {
     @include sizes(40px, 40px);
     border-radius: 100%;
     @include flexStyles(flex, row, center, center);
-    border: 1px solid grey;
+    border: 1px solid $dark-grey;
     margin-right: 30px;
   }
 
@@ -62,7 +62,7 @@
     gap: 5px;
 
     .active-status {
-      border: 1px solid grey;
+      border: 1px solid $dark-grey;
       padding: 5px;
     }
 

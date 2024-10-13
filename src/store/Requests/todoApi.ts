@@ -63,7 +63,7 @@ export const todosApi = createApi({
           }
         }
 
-        return { data: undefined }; // Returning `data` as `undefined` since the mutation has no data to return
+        return { data: undefined };
       },
       invalidatesTags: ['todos'],
     }),
